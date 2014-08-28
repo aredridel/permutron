@@ -34,3 +34,15 @@ test('Permute supporting non-array arguments as single combinations', function (
     });
 
 });
+
+test('z͖a̶lg̮̙o̟̮̺͙̞̜͘', function (t) {
+    var results;
+    permutron(1, function (a, next) {
+        results = a;
+        next();
+    }, function() {
+        t.end();
+    });
+
+    t.ok(typeof results == 'undefined', 'action deferred');
+});

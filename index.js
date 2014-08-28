@@ -9,7 +9,9 @@ module.exports = function permutron() {
     assert(typeof donecb == 'function');
 
     permute(args, function(pass, next) {
-        iterator.apply(null, pass.concat(next));
+        setImmediate(function() {
+            iterator.apply(null, pass.concat(next));
+        });
     }, donecb);
 
 };
@@ -20,7 +22,9 @@ function permute(args, iterator, donecb) {
             iterator([cur], next);
         } else {
             permute(args.slice(1), function (further, next) {
-                iterator([cur].concat(further), next);
+                setImmediate(function() {
+                    iterator([cur].concat(further), next);
+                });
             }, next);
         }
     }, donecb);
@@ -33,7 +37,9 @@ function asyncEach(array, iterator, done) {
             return done();
         }
 
-        iterator(array[i], i++, iterate);
+        setImmediate(function() {
+            iterator(array[i], i++, iterate);
+        });
     }
 
     iterate();
