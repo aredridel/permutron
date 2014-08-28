@@ -6,7 +6,14 @@ Asynchronously iterate permutations of function arguments
 
 ```
 var permutron = require('permutron');
-permutron('static arguments', ['permutable arguments'], 'static', ['permutable'], handler, done);
+```
+
+```
+permutron('static', ['permutable'], 'static', ['permutable'], function (a, b, c, d, next) { }, done);
+```
+
+```
+permutron.raw(['static', ['permutable'], 'static', ['permutable']], function(row, next) { }, done);
 ```
 
 ## Description
