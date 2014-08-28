@@ -1,0 +1,26 @@
+{
+  "name": "permutron",
+  "version": "1.0.0",
+  "description": "Asynchronously iterate over permutations of function arguments",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aredridel/permutron"
+  },
+  "keywords": [
+    "permutation",
+    "iteration"
+  ],
+  "author": "Aria Stewart <aredridel@nbtsc.org>",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/aredridel/permutron/issues"
+  },
+  "homepage": "https://github.com/aredridel/permutron",
+  "devDependencies": {
+    "tape": "^2.14.0"
+  }
+}
