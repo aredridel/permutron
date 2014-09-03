@@ -18,6 +18,24 @@ module.exports = function permutron() {
 
 module.exports.raw = permute;
 
+module.exports.object = permuteObject;
+
+function permuteObject(object, iterator, donecb) {
+    assert(typeof iterator == 'function');
+    assert(typeof donecb == 'function');
+    var keys = Object.keys(object);
+
+    permute(keys.map(function (e) { return object[e]; }), function(pass, next) {
+        setImmediate(function() {
+            var obj = {};
+            for (var i in keys) {
+                obj[keys[i]] = pass[i];
+            }
+            iterator(obj, next);
+        });
+    }, donecb);
+}
+
 function permute(args, iterator, donecb) {
     assert(typeof iterator == 'function');
     assert(typeof donecb == 'function');

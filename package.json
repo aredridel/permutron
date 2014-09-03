@@ -1,6 +1,6 @@
 {
   "name": "permutron",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Asynchronously iterate over permutations of function arguments",
   "main": "index.js",
   "scripts": {

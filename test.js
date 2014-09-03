@@ -55,6 +55,21 @@ test('Permute supporting functions as generators', function (t) {
 
 });
 
+test('Permute values of objects', function (t) {
+
+    var results = [];
+    permutron.object({before: 'before', mid: [1, 2], after: 'after'}, function (obj, next) {
+        results.push(obj);
+        next();
+    }, function (err) {
+        if (err) t.fail(err);
+        t.deepEqual(results[0], {before: 'before', mid: 1, after: 'after'});
+        t.deepEqual(results[1], {before: 'before', mid: 2, after: 'after'});
+        t.equal(results.length, 2);
+        t.end();
+    });
+});
+
 test('z͖a̶lg̮̙o̟̮̺͙̞̜͘', function (t) {
     var results;
     permutron(1, function (a, next) {
