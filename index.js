@@ -22,7 +22,13 @@ function permute(args, iterator, donecb) {
     assert(typeof iterator == 'function');
     assert(typeof donecb == 'function');
 
-    asyncEach(Array.isArray(args[0]) ? args[0] : [args[0]], function (cur, j, next) {
+    if (typeof args[0] == 'function') {
+        generate(args[0], handler, donecb);
+    } else {
+        asyncEach(Array.isArray(args[0]) ? args[0] : [args[0]], handler, donecb);
+    }
+
+    function handler(cur, j, next) {
         if (args.length == 1) {
             iterator([cur], next);
         } else {
@@ -32,7 +38,32 @@ function permute(args, iterator, donecb) {
                 });
             }, next);
         }
-    }, donecb);
+    }
+}
+
+function generate(func, iterator, done) {
+    var i = 0;
+    var context = {};
+
+    function gen() {
+        func(i, context, function afterGeneration(err, result) {
+            if (err) {
+                return done(err);
+            } else {
+                iterator(result.value, i++, function continueGenerator(err) {
+                    if (err) {
+                        return done(err);
+                    } else if (result.done) {
+                        return done();
+                    } else {
+                        gen();
+                    }
+                });
+            }
+        });
+    }
+
+    gen();
 }
 
 function asyncEach(array, iterator, done) {

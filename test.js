@@ -35,6 +35,26 @@ test('Permute supporting non-array arguments as single combinations', function (
 
 });
 
+test('Permute supporting functions as generators', function (t) {
+
+    var results = [];
+    permutron('before', generator, 'after', function (before, mid, after, next) {
+        results.push([before, mid, after]);
+        next();
+    }, function (err) {
+        if (err) t.fail(err);
+        t.deepEqual(results[0], ['before', 1, 'after']);
+        t.deepEqual(results[1], ['before', 2, 'after']);
+        t.equal(results.length, 2);
+        t.end();
+    });
+
+    function generator(i, context, next) {
+        next(null, {value: i + 1, done: i >= 1});
+    }
+
+});
+
 test('z͖a̶lg̮̙o̟̮̺͙̞̜͘', function (t) {
     var results;
     permutron(1, function (a, next) {
