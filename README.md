@@ -35,7 +35,7 @@ Arguments that are arrays are used as sources of permutations, other arguments a
 ```
 var permutron = require('permutron');
 
-permutron('static1', ['dynamic1', 'dynamic2'], ['dynamic3', 'dynamic4'], generator, 'static2', function (a, b, c, d, e, next()) {
+permutron('static1', ['dynamic1', 'dynamic2'], ['dynamic3', 'dynamic4'], generator, 'static2', function (a, b, c, d, e, next) {
     console.log(a, b, c, d, e);
     next();
 }, function (err) {
